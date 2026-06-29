@@ -3,9 +3,10 @@
 레지스터를 직접 만지며 배우는 STM32F411 베어메탈 펌웨어 강의입니다.
 HAL 없이, 주변장치 하나씩 익히고 마지막엔 그 부품들을 모아 **간단한 게임**을 만듭니다.
 
+- **보드**: 올인원 교육 보드 (STM32F411 + 센서/LED/LCD + **RP2040 디버그프로브 내장**)
 - **MCU**: STM32F411CEUx (Cortex-M4F, HSI 16MHz, Flash 512K / RAM 128K)
 - **개발환경**: VS Code + Arm GNU Toolchain + OpenOCD (Windows / macOS 공통)
-- **프로그래머**: RP2040 debugprobe (CMSIS-DAP, SWD)
+- **플래시/디버깅**: 보드 내장 RP2040(CMSIS-DAP)에 **USB-C 케이블 하나만** 연결 — 외부 프로그래머·점퍼선 불필요
 
 각 레슨은 **폴더 하나만 VS Code로 열면** 빌드 → 플래시 → 디버깅이 바로 됩니다.
 환경 설치 방법은 각 레슨의 `README.md`에 담겨 있습니다 (Lesson 1부터 시작하세요).
