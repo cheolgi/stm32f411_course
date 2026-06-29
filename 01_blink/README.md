@@ -23,26 +23,62 @@ VS Code 확장 (이 폴더를 열면 "권장 확장 설치" 알림이 뜹니다)
 
 ## 1. 개발환경 설치
 
+> **목표는 단 하나** — 터미널에서 아래 **세 명령이 모두 버전을 출력**하면 끝입니다.
+> VS Code(빌드·플래시·디버깅)는 이 세 도구를 **PATH에서 찾습니다.**
+> ```
+> arm-none-eabi-gcc --version
+> arm-none-eabi-gdb --version      ← 디버깅(F5)에 필요
+> openocd --version
+> ```
+
 ### 🍎 macOS
+
+**(1) Arm GNU Toolchain** — 가장 확실한 방법은 공식 설치본 직접 설치:
+1. https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads 에서
+   **"macOS (Apple silicon)"** 또는 본인 칩에 맞는 `.pkg`를 받아 설치
+2. 첫 실행이 Gatekeeper에 막히면(developer cannot be verified):
+   `System Settings ▸ Privacy & Security` 에서 허용, 또는 터미널:
+   ```bash
+   sudo xattr -dr com.apple.quarantine "/Applications/ArmGNUToolchain"
+   ```
+3. **PATH 등록** (설치 경로의 `bin`. `<버전>`은 실제 폴더명으로):
+   ```bash
+   echo 'export PATH="/Applications/ArmGNUToolchain/<버전>/arm-none-eabi/bin:$PATH"' >> ~/.zshrc
+   ```
+   > Homebrew가 있으면 `brew install --cask gcc-arm-embedded` 로 대체 가능
+   > (단, 설치 후 위 "세 명령" 검증은 똑같이 하세요)
+
+**(2) OpenOCD**
 ```bash
-# Homebrew(https://brew.sh)가 설치돼 있다고 가정
-brew install --cask gcc-arm-embedded   # arm-none-eabi-gcc + gdb
-brew install open-ocd                  # openocd
+brew install open-ocd     # Homebrew가 있을 때
 ```
+brew가 없으면 https://github.com/xpack-dev-tools/openocd-xpack/releases 에서
+zip을 받아 `bin` 폴더를 PATH에 추가.
 
 ### 🪟 Windows
-1. **Arm GNU Toolchain** 설치
-   - https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads 에서
-     `arm-none-eabi` Windows 설치파일 실행
-   - 설치 마지막에 **"Add path to environment variable" 체크** (중요!)
-   - (또는 터미널에서) `winget install Arm.GnuArmEmbeddedToolchain`
-2. **OpenOCD** 설치
-   - `winget install xpack-dev-tools.openocd`  *(또는 scoop: `scoop install openocd`)*
-   - 수동: https://github.com/xpack-dev-tools/openocd-xpack/releases 에서 zip 받아
-     압축 풀고 `bin` 폴더를 시스템 PATH에 추가
 
-> 설치 후 **새 터미널**을 열어 `arm-none-eabi-gcc --version` 과 `openocd --version` 이
-> 동작하는지 꼭 확인하세요. (PATH가 안 잡히면 VS Code도 못 찾습니다.)
+**(1) Arm GNU Toolchain**
+- https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads 에서
+  **Windows `.exe`** 설치파일 실행
+- 설치 마지막 화면에서 **"Add path to environment variable" 체크** ← 가장 중요!
+
+**(2) OpenOCD** (둘 중 하나)
+- `scoop install openocd`   *(Scoop 사용 시 — 가장 간단)*
+- 수동: https://github.com/xpack-dev-tools/openocd-xpack/releases 에서 zip을 받아
+  압축 풀고 `bin` 폴더를 **시스템 환경변수 Path에 추가**
+
+---
+
+### ✅ 설치 검증 (이 단계를 건너뛰지 마세요)
+**새 터미널**을 열고(설치 후 PATH 반영을 위해 반드시 새 창) 세 명령을 실행:
+```
+arm-none-eabi-gcc --version
+arm-none-eabi-gdb --version
+openocd --version
+```
+**세 개 모두 버전이 보이면 환경설치 끝.** 하나라도 `command not found`(맥) /
+`인식할 수 없는 명령`(윈도우)이면 → 그 도구의 `bin` 폴더가 PATH에 없는 것이니
+설치 단계의 PATH 등록을 다시 확인하세요. (PATH가 안 잡히면 VS Code도 못 찾습니다.)
 
 ---
 
