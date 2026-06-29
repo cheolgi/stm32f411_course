@@ -1,0 +1,44 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build",
+      "type": "shell",
+      "command": "arm-none-eabi-gcc",
+      "args": [
+        "-mcpu=cortex-m4", "-mthumb",
+        "-Og", "-g3",
+        "-ffreestanding", "-nostdlib",
+        "-Wall", "-Wextra", "-Wno-misleading-indentation",
+        "-T", "stm32f411.ld",
+        "startup.c", "main.c",
+        "-o", "blink.elf",
+        "-lgcc"
+      ],
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": ["$gcc"],
+      "detail": "arm-none-eabi-gcc 로 blink.elf 빌드"
+    },
+    {
+      "label": "Flash",
+      "type": "shell",
+      "command": "openocd",
+      "args": [
+        "-f", "openocd.cfg",
+        "-c", "program blink.elf verify reset exit"
+      ],
+      "dependsOn": "Build",
+      "problemMatcher": [],
+      "detail": "debugprobe(OpenOCD)로 보드에 굽고 리셋"
+    },
+    {
+      "label": "Clean",
+      "type": "shell",
+      "command": "rm",
+      "args": ["-f", "blink.elf"],
+      "windows": { "command": "cmd", "args": ["/c", "del", "/q", "blink.elf"] },
+      "problemMatcher": [],
+      "detail": "빌드 산출물 삭제"
+    }
+  ]
+}

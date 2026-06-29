@@ -1,0 +1,35 @@
+# STM32F411 베어메탈 임베디드 강의
+
+레지스터를 직접 만지며 배우는 STM32F411 베어메탈 펌웨어 강의입니다.
+HAL 없이, 주변장치 하나씩 익히고 마지막엔 그 부품들을 모아 **간단한 게임**을 만듭니다.
+
+- **MCU**: STM32F411CEUx (Cortex-M4F, HSI 16MHz, Flash 512K / RAM 128K)
+- **개발환경**: VS Code + Arm GNU Toolchain + OpenOCD (Windows / macOS 공통)
+- **프로그래머**: RP2040 debugprobe (CMSIS-DAP, SWD)
+
+각 레슨은 **폴더 하나만 VS Code로 열면** 빌드 → 플래시 → 디버깅이 바로 됩니다.
+환경 설치 방법은 각 레슨의 `README.md`에 담겨 있습니다 (Lesson 1부터 시작하세요).
+
+## 커리큘럼
+
+| # | 레슨 | 새로 배우는 것 | 결과 |
+|---|---|---|---|
+| 1 | **Blink** | GPIO 출력, RCC 클럭, MMIO | LED 깜빡임 |
+| 2 | 버튼 | GPIO 입력, 풀업, 엣지검출 | 버튼 → LED 토글 |
+| 3 | LED PWM | 타이머 PWM, duty | LED 밝기 변화 |
+| 4 | 포토 → 밝기 | ADC 샘플링 | 어두우면 LED 자동 밝기 |
+| 5 | I2C 가속도계 | I2C, 센서 read | 기울이면 LED가 따라감 |
+| 6 | 버저 PWM | 주파수=음정 | 버튼마다 다른 소리 |
+| 7 | SPI 화면 | SPI, 프레임버퍼 | 화면에 글자/그림 |
+| 8+ | 게임 빌드업 | 이동·충돌·점수·DMA 프로파일링 | 플레이 가능한 게임 |
+
+## 시작하기
+
+```bash
+# 이 저장소를 받은 뒤
+cd 01_blink
+# VS Code로 이 폴더를 열고 README.md를 따라하세요
+```
+
+## 라이선스
+MIT

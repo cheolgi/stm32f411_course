@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug (debugprobe / OpenOCD)",
+      "type": "cortex-debug",
+      "request": "launch",
+      "servertype": "openocd",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/blink.elf",
+      "configFiles": ["openocd.cfg"],
+      "preLaunchTask": "Build",
+      "runToEntryPoint": "main",
+      "showDevDebugOutput": "none"
+      // arm-none-eabi-gdb 가 PATH에 없으면 아래 줄의 주석을 풀고 경로 지정:
+      // "gdbPath": "arm-none-eabi-gdb"
+    }
+  ]
+}

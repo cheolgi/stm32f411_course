@@ -1,0 +1,13 @@
+{
+  "version": 4,
+  "configurations": [
+    {
+      "name": "STM32F411",
+      "includePath": ["${workspaceFolder}/**"],
+      "defines": ["STM32F411xE"],
+      "compilerPath": "arm-none-eabi-gcc",
+      "cStandard": "c11",
+      "intelliSenseMode": "${default}"
+    }
+  ]
+}
